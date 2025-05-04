@@ -1,7 +1,8 @@
 #pragma once
 
 #include <variant>
-#include "Time.h"
+
+#include "../model/Time.h"
 
 
 struct ClientArrivedEvent {
