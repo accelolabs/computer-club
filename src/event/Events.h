@@ -14,8 +14,6 @@ struct ClientArrivedEvent {
     std::string client_name;
 
 
-    ClientArrivedEvent() = delete;
-
     ClientArrivedEvent(const Time& time, const std::string& client_name) :
         time(time),
         client_name(client_name)
@@ -35,8 +33,6 @@ struct ClientSatEvent {
     int table_id;
 
 
-    ClientSatEvent() = delete;
-
     ClientSatEvent(const Time& time, const std::string& client_name, int table_id) :
         time(time),
         client_name(client_name),
@@ -55,8 +51,6 @@ struct ClientWaitedEvent {
     std::string client_name;
 
 
-    ClientWaitedEvent() = delete;
-
     ClientWaitedEvent(const Time& time, const std::string& client_name) :
         time(time),
         client_name(client_name)
@@ -74,8 +68,6 @@ struct ClientLeftEvent {
     std::string client_name;
 
 
-    ClientLeftEvent() = delete;
-
     ClientLeftEvent(const Time& time, const std::string& client_name) :
         time(time),
         client_name(client_name)
@@ -92,8 +84,6 @@ struct ClientKickedEvent {
 
     std::string client_name;
 
-
-    ClientKickedEvent() = delete;
 
     ClientKickedEvent(const Time& time, const std::string& client_name) :
         time(time),
@@ -114,8 +104,6 @@ struct QueuedClientSatEvent {
     int table_id;
 
 
-    QueuedClientSatEvent() = delete;
-
     QueuedClientSatEvent(const Time& time, const std::string& client_name, int table_id) :
         time(time),
         client_name(client_name),
@@ -133,8 +121,6 @@ struct ErrorEvent {
 
     std::string error_name;
 
-
-    ErrorEvent() = delete;
 
     ErrorEvent(const Time& time, const std::string& error_name) :
         time(time),
