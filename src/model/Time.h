@@ -16,6 +16,9 @@ public:
 
     explicit Time(const std::string& str);
 
+    explicit Time(int mins);
+
+
     // Return minutes starting from 00:00
     uint get_total_minutes() const;
 
