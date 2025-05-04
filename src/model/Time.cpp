@@ -14,16 +14,16 @@ Time::Time(const std::string& str) {
 }
 
 
-uint Time::get_total_minutes() {
+uint Time::get_total_minutes() const {
     return hours * 60 + minutes;
 }
 
 
-uint Time::get_total_hours() {
+uint Time::get_total_hours() const {
     return hours + !!minutes;
 }
 
 
-std::string Time::as_string() {
+std::string Time::as_string() const {
     return time;
 }

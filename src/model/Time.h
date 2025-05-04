@@ -17,12 +17,12 @@ public:
     explicit Time(const std::string& str);
 
     // Return minutes starting from 00:00
-    uint get_total_minutes();
+    uint get_total_minutes() const;
 
     // Return hours starting from 00:00, rounding up minutes
     // Example: 00:01 should return 1
-    uint get_total_hours();
+    uint get_total_hours() const;
 
-    std::string as_string();
+    std::string as_string() const;
 
 };
