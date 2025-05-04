@@ -1,9 +1,14 @@
 #pragma once
 
 #include "Events.h"
+#include "PrintHandler.h"
 
 
 class EventHandler {
+
+private:
+
+    PrintHandler print;
 
 public:
 
