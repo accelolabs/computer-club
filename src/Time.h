@@ -6,6 +6,8 @@
 class Time {
 private:
 
+    std::string time;
+
     int minutes;
 
     int hours;
@@ -21,8 +23,6 @@ public:
     // Example: 00:01 should return 1
     uint get_total_hours();
 
-    uint parse_minutes();
-
-    uint parse_hours();
+    std::string as_string();
 
 };
