@@ -11,19 +11,19 @@ class EventHandler {
 
 private:
 
-    std::unique_ptr<ComputerClub> club;
+    ComputerClub club;
 
     PrintHandler print;
 
 public:
 
     EventHandler(const Time& time_open, const Time& time_close) :
-        club(std::make_unique<ComputerClub>(time_open, time_close)),
+        club(time_open, time_close),
         print(nullptr)
     {}
 
     EventHandler(const Time& time_open, const Time& time_close, std::ostream& os) :
-        club(std::make_unique<ComputerClub>(time_open, time_close)),
+        club(time_open, time_close),
         print(os)
     {}
 

@@ -25,16 +25,19 @@ public:
 
     bool open_at(const Time& time) const;
 
-    bool at_tables(const std::string client_name) const;
+    bool at_tables(const std::string& client_name) const;
 
-    bool at_queue(const std::string client_name) const;
+    bool at_queue(const std::string& client_name) const;
 
-    bool at_club(const std::string client_name) const;
+    bool at_club(const std::string& client_name) const;
 
     bool has_tables() const;
 
     int tables_count() const;
 
     int queue_count() const;
+
+
+    void queue_client(const std::string& client_name);
 
 };
