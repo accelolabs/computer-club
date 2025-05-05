@@ -1,19 +1,25 @@
 #pragma once
 
+#include <map>
+#include <string>
 #include <vector>
+#include <deque>
+
 #include "Table.h"
+#include "ClientStatus.h"
+#include "../event/Events.h"
 
 
 class ComputerClub {
+
 private:
 
     int minutes_open;
-
     int minutes_close;
 
     std::vector<Table> tables;
-    
-    std::vector<std::string> queue;
+    std::deque<std::string> queue;
+    std::map<std::string, ClientStatus> clients;
 
 public:
 
@@ -23,21 +29,14 @@ public:
     {}
 
 
-    bool open_at(const Time& time) const;
+    EventVariants handle_arrive(const ClientArrivedEvent& event) const;
 
-    bool at_tables(const std::string& client_name) const;
+    EventVariants handle_sit(const ClientSatEvent& event) const;
 
-    bool at_queue(const std::string& client_name) const;
+    EventVariants handle_wait(const ClientWaitedEvent& event) const;
 
-    bool at_club(const std::string& client_name) const;
+    EventVariants handle_leave(const ClientLeftEvent& event) const;
 
-    bool has_tables() const;
-
-    int tables_count() const;
-
-    int queue_count() const;
-
-
-    void queue_client(const std::string& client_name);
+    EventVariants handle_kick(const ClientKickedEvent& event) const;
 
 };

@@ -1,17 +1,24 @@
 #pragma once
 
-#include <ostream>
 #include <variant>
 
 #include "../model/Time.h"
 
 
+struct EmptyEvent {
+
+    int id = 0;
+
+
+    EmptyEvent() {}
+
+};
+
+
 struct ClientArrivedEvent {
-    
+
     Time time;
-
     int id = 1;
-
     std::string client_name;
 
 
@@ -24,13 +31,10 @@ struct ClientArrivedEvent {
 
 
 struct ClientSatEvent {
-    
+
     Time time;
-
     int id = 1;
-
     std::string client_name;
-
     int table_id;
 
 
@@ -44,11 +48,9 @@ struct ClientSatEvent {
 
 
 struct ClientWaitedEvent {
-    
+
     Time time;
-
     int id = 3;
-
     std::string client_name;
 
 
@@ -61,11 +63,9 @@ struct ClientWaitedEvent {
 
 
 struct ClientLeftEvent {
-    
+
     Time time;
-
     int id = 4;
-
     std::string client_name;
 
 
@@ -78,11 +78,9 @@ struct ClientLeftEvent {
 
 
 struct ClientKickedEvent {
-    
+
     Time time;
-
     int id = 11;
-
     std::string client_name;
 
 
@@ -95,13 +93,10 @@ struct ClientKickedEvent {
 
 
 struct QueuedClientSatEvent {
-    
+
     Time time;
-
     int id = 12;
-
     std::string client_name;
-
     int table_id;
 
 
@@ -115,11 +110,9 @@ struct QueuedClientSatEvent {
 
 
 struct ErrorEvent {
-    
+
     Time time;
-
     int id = 13;
-
     std::string error_name;
 
 
@@ -131,12 +124,13 @@ struct ErrorEvent {
 };
 
 
-using EVENTS = std::variant<
+using EventVariants = std::variant<
     ClientArrivedEvent,
     ClientSatEvent,
     ClientWaitedEvent,
     ClientLeftEvent,
     ClientKickedEvent,
     QueuedClientSatEvent,
-    ErrorEvent
+    ErrorEvent,
+    EmptyEvent
 >;

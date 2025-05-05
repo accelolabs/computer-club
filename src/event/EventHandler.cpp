@@ -1,54 +1,40 @@
 #include "EventHandler.h"
 #include "Events.h"
+#include <variant>
 
 
 void EventHandler::operator()(const ClientArrivedEvent& event) {
     print(event);
 
-    if (!club.open_at(event.time)) {
-        (*this)(
-            ErrorEvent(
-                event.time,
-                "NotOpenYet"
-            )
-        );
-
-        return;
-    }
-
-    if (club.at_club(event.client_name)) {
-        (*this)(
-            ErrorEvent(
-                event.time,
-                "YouShallNotPass"
-            )
-        );
-
-        return;
-    }
-
-    club.queue_client(event.client_name);
-
+    std::visit(*this, club.handle_arrive(event));
 }
 
 
 void EventHandler::operator()(const ClientSatEvent& event) {
     print(event);
+
+    std::visit(*this, club.handle_sit(event));
 }
 
 
 void EventHandler::operator()(const ClientWaitedEvent& event) {
     print(event);
+
+    std::visit(*this, club.handle_wait(event));
 }
 
 
 void EventHandler::operator()(const ClientLeftEvent& event) {
     print(event);
+
+    std::visit(*this, club.handle_leave(event));
 }
 
 
 void EventHandler::operator()(const ClientKickedEvent& event) {
     print(event);
+
+    std::visit(*this, club.handle_kick(event));
 }
 
 

@@ -6,7 +6,7 @@
 
 
 int main(int, char**){
-    std::vector<EVENTS> events;
+    std::vector<EventVariants> events;
     events.emplace_back(ClientArrivedEvent(Time("01:44"), "Linus"));
     events.emplace_back(ClientArrivedEvent(Time("01:45"), "Marvin"));
     events.emplace_back(ClientArrivedEvent(Time("02:39"), "Terry"));

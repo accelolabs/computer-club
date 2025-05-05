@@ -42,4 +42,6 @@ public:
     
     void operator()(const ErrorEvent& event);
 
+    void operator()(const EmptyEvent& event) {}
+
 };
