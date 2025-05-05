@@ -1,5 +1,0 @@
-
-enum ClientStatus {
-    WAITING,
-    GAMING
-};

@@ -6,7 +6,7 @@
 #include <deque>
 
 #include "Table.h"
-#include "ClientStatus.h"
+#include "HelperModels.h"
 #include "../event/Events.h"
 
 
@@ -23,10 +23,7 @@ private:
 
 public:
 
-    ComputerClub(const Time& time_open, const Time& time_close) :
-        minutes_open(time_open.get_total_minutes()),
-        minutes_close(time_close.get_total_minutes())
-    {}
+    ComputerClub(const ComputerClubConfig& config);
 
 
     EventVariants handle_arrive(const ClientArrivedEvent& event);

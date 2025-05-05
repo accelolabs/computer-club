@@ -2,6 +2,14 @@
 #include <string>
 
 
+ComputerClub::ComputerClub(const ComputerClubConfig& config) {
+    for (int id = 1; id <= config.table_count; ++id) tables.emplace_back(id, config.price_rate);
+
+    minutes_open = config.time_open.get_total_minutes();
+    minutes_close = config.time_close.get_total_minutes();
+}
+
+
 EventVariants ComputerClub::handle_arrive(const ClientArrivedEvent& event) {
     if (clients.contains(event.client_name)) return ErrorEvent(event.time, "YouShallNotPass");
     if (event.time.get_total_minutes() < minutes_open) return ErrorEvent(event.time, "NotOpenYet");

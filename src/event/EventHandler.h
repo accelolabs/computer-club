@@ -5,6 +5,7 @@
 #include "Events.h"
 #include "PrintHandler.h"
 #include "../model/ComputerClub.h"
+#include "../model/HelperModels.h"
 
 
 class EventHandler {
@@ -17,13 +18,13 @@ private:
 
 public:
 
-    EventHandler(const Time& time_open, const Time& time_close) :
-        club(time_open, time_close),
+    EventHandler(const ComputerClubConfig& config) :
+        club(config),
         print(nullptr)
     {}
 
-    EventHandler(const Time& time_open, const Time& time_close, std::ostream& os) :
-        club(time_open, time_close),
+    EventHandler(const ComputerClubConfig& config, std::ostream& os) :
+        club(config),
         print(os)
     {}
 
