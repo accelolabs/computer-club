@@ -1,22 +1,31 @@
 #pragma once
 
+#include <ostream>
+
 #include "Events.h"
 #include "PrintHandler.h"
-#include <fstream>
-#include <ostream>
+#include "../model/ComputerClub.h"
 
 
 class EventHandler {
 
 private:
 
+    std::unique_ptr<ComputerClub> club;
+
     PrintHandler print;
 
 public:
 
-    EventHandler() : print(nullptr) {}
+    EventHandler(const Time& time_open, const Time& time_close) :
+        club(std::make_unique<ComputerClub>(time_open, time_close)),
+        print(nullptr)
+    {}
 
-    EventHandler(std::ostream& os) : print(os) {}
+    EventHandler(const Time& time_open, const Time& time_close, std::ostream& os) :
+        club(std::make_unique<ComputerClub>(time_open, time_close)),
+        print(os)
+    {}
 
 
     void operator()(const ClientArrivedEvent& event);

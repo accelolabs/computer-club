@@ -7,11 +7,23 @@
 class ComputerClub {
 private:
 
+    int minutes_open;
+
+    int minutes_close;
+
     std::vector<Table> tables;
     
     std::vector<std::string> queue;
 
 public:
+
+    ComputerClub(const Time& time_open, const Time& time_close) :
+        minutes_open(time_open.get_total_minutes()),
+        minutes_close(time_close.get_total_minutes())
+    {}
+
+
+    bool open_at(const Time& time) const;
 
     bool at_tables(const std::string client_name) const;
 
@@ -24,14 +36,5 @@ public:
     int tables_count() const;
 
     int queue_count() const;
-
-
-    bool kick_client(const std::string client_name);
-
-    bool queue_client(const std::string client_name);
-
-    bool queue_sit_first();
-
-    bool queue_sit(const std::string client_name);
 
 };

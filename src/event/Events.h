@@ -20,11 +20,6 @@ struct ClientArrivedEvent {
         client_name(client_name)
     {}
 
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name;
-    }
-
 };
 
 
@@ -45,11 +40,6 @@ struct ClientSatEvent {
         table_id(table_id)
     {}
 
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name << table_id;
-    }
-
 };
 
 
@@ -66,11 +56,6 @@ struct ClientWaitedEvent {
         time(time),
         client_name(client_name)
     {}
-
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name;
-    }
 
 };
 
@@ -89,11 +74,6 @@ struct ClientLeftEvent {
         client_name(client_name)
     {}
 
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name;
-    }
-
 };
 
 
@@ -110,11 +90,6 @@ struct ClientKickedEvent {
         time(time),
         client_name(client_name)
     {}
-
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name;
-    }
 
 };
 
@@ -136,11 +111,6 @@ struct QueuedClientSatEvent {
         table_id(table_id)
     {}
 
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << client_name << table_id;
-    }
-
 };
 
 
@@ -157,11 +127,6 @@ struct ErrorEvent {
         time(time),
         error_name(error_name)
     {}
-
-
-    void print(std::ostream& output) {
-        output << time.as_string() << " " << id << error_name;
-    }
 
 };
 

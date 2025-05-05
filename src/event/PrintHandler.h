@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "Events.h"
 
 
@@ -7,7 +8,7 @@ class PrintHandler {
 
 private:
 
-    std::ostream* output;
+    std::shared_ptr<std::ostream> output;
 
 public:
 

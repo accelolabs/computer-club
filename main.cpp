@@ -1,7 +1,9 @@
 #include <iostream>
+#include <memory>
 #include <vector>
 #include "src/event/EventHandler.h"
 #include "src/event/Events.h"
+#include "src/model/ComputerClub.h"
 
 
 
@@ -14,9 +16,14 @@ int main(int, char**){
     events.emplace_back(ClientArrivedEvent(Time("04:04"), "Garry"));
     events.emplace_back(ClientArrivedEvent(Time("05:59"), "Daniel"));
 
-    EventHandler handler(std::cout);
+    EventHandler handler(
+        Time("02:00"),
+        Time("05:00"),
+        std::cout
+    );
+    
     for (const auto& event : events) {
-        std::visit(handler, event);
+        // std::visit(handler, event);
     }
 
     return 0;

@@ -1,4 +1,5 @@
 #include "PrintHandler.h"
+#include <iostream>
 
 
 void PrintHandler::operator()(const ClientArrivedEvent& event) {

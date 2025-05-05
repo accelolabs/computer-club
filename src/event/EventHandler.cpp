@@ -1,4 +1,5 @@
 #include "EventHandler.h"
+#include "Events.h"
 
 
 void EventHandler::operator()(const ClientArrivedEvent& event) {
