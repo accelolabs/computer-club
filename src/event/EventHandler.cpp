@@ -6,21 +6,25 @@ void EventHandler::operator()(const ClientArrivedEvent& event) {
     print(event);
 
     if (!club.open_at(event.time)) {
-        print(
+        (*this)(
             ErrorEvent(
                 event.time,
                 "NotOpenYet"
             )
         );
+
+        return;
     }
 
     if (club.at_club(event.client_name)) {
-        print(
+        (*this)(
             ErrorEvent(
                 event.time,
                 "YouShallNotPass"
             )
         );
+
+        return;
     }
 
     club.queue_client(event.client_name);
