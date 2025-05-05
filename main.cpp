@@ -1,10 +1,7 @@
 #include <iostream>
-#include <memory>
 #include <vector>
 #include "src/event/EventHandler.h"
 #include "src/event/Events.h"
-#include "src/model/ComputerClub.h"
-
 
 
 
@@ -23,7 +20,7 @@ int main(int, char**){
     );
     
     for (const auto& event : events) {
-        // std::visit(handler, event);
+        std::visit(handler, event);
     }
 
     return 0;

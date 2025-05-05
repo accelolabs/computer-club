@@ -8,7 +8,7 @@ class PrintHandler {
 
 private:
 
-    std::shared_ptr<std::ostream> output;
+    std::ostream* output;
 
 public:
 
