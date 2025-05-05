@@ -1,5 +1,5 @@
 
 enum ClientStatus {
-    QUEUED,
+    WAITING,
     GAMING
 };

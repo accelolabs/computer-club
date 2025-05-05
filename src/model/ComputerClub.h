@@ -29,14 +29,16 @@ public:
     {}
 
 
-    EventVariants handle_arrive(const ClientArrivedEvent& event) const;
+    EventVariants handle_arrive(const ClientArrivedEvent& event);
 
-    EventVariants handle_sit(const ClientSatEvent& event) const;
+    EventVariants handle_sit(const ClientSatEvent& event);
 
-    EventVariants handle_wait(const ClientWaitedEvent& event) const;
+    EventVariants handle_wait(const ClientWaitedEvent& event);
 
-    EventVariants handle_leave(const ClientLeftEvent& event) const;
+    EventVariants handle_leave(const ClientLeftEvent& event);
 
-    EventVariants handle_kick(const ClientKickedEvent& event) const;
+    EventVariants handle_kick(const ClientKickedEvent& event);
+
+    EventVariants handle_dequeue(const ClientDequeuedEvent& event);
 
 };

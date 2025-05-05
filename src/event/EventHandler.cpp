@@ -38,8 +38,10 @@ void EventHandler::operator()(const ClientKickedEvent& event) {
 }
 
 
-void EventHandler::operator()(const QueuedClientSatEvent& event) {
+void EventHandler::operator()(const ClientDequeuedEvent& event) {
     print(event);
+
+    std::visit(*this, club.handle_dequeue(event));
 }
 
 

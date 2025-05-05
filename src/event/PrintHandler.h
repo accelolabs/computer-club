@@ -27,7 +27,7 @@ public:
     
     void operator()(const ClientKickedEvent& event);
     
-    void operator()(const QueuedClientSatEvent& event);
+    void operator()(const ClientDequeuedEvent& event);
 
     void operator()(const ErrorEvent& event);
 

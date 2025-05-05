@@ -38,7 +38,7 @@ void PrintHandler::operator()(const ClientKickedEvent& event) {
         << event.client_name << "\n";
 }
 
-void PrintHandler::operator()(const QueuedClientSatEvent& event) {
+void PrintHandler::operator()(const ClientDequeuedEvent& event) {
     *output
         << event.time.as_string() << " "
         << event.id << " "

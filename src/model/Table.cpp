@@ -18,12 +18,12 @@ void Table::occupy(const Time& time, const std::string& client_name) {
     session_start = time;
 }
 
-void Table::free(const Time& time, int price) {
+void Table::free(const Time& time) {
     if (!occupied) return;
 
     occupied = false;
 
     int minutes_occupied = time.get_total_minutes() - session_start.get_total_minutes();
-    revenue += (minutes_occupied / 60) * price;
+    revenue += (minutes_occupied / 60) * price_rate;
     minutes += minutes_occupied;
 }

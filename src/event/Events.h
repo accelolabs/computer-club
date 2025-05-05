@@ -92,7 +92,7 @@ struct ClientKickedEvent {
 };
 
 
-struct QueuedClientSatEvent {
+struct ClientDequeuedEvent {
 
     Time time;
     int id = 12;
@@ -100,7 +100,7 @@ struct QueuedClientSatEvent {
     int table_id;
 
 
-    QueuedClientSatEvent(const Time& time, const std::string& client_name, int table_id) :
+    ClientDequeuedEvent(const Time& time, const std::string& client_name, int table_id) :
         time(time),
         client_name(client_name),
         table_id(table_id)
@@ -125,12 +125,12 @@ struct ErrorEvent {
 
 
 using EventVariants = std::variant<
+    EmptyEvent,
     ClientArrivedEvent,
     ClientSatEvent,
     ClientWaitedEvent,
     ClientLeftEvent,
     ClientKickedEvent,
-    QueuedClientSatEvent,
-    ErrorEvent,
-    EmptyEvent
+    ClientDequeuedEvent,
+    ErrorEvent
 >;
