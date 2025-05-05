@@ -2,6 +2,8 @@
 
 #include "Events.h"
 #include "PrintHandler.h"
+#include <fstream>
+#include <ostream>
 
 
 class EventHandler {
@@ -11,6 +13,11 @@ private:
     PrintHandler print;
 
 public:
+
+    EventHandler() : print(nullptr) {}
+
+    EventHandler(std::ostream& os) : print(os) {}
+
 
     void operator()(const ClientArrivedEvent& event);
     

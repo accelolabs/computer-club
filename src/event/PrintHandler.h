@@ -7,11 +7,13 @@ class PrintHandler {
 
 private:
 
-    std::ostream& output;
+    std::ostream* output;
 
 public:
 
-    PrintHandler(std::ostream& output);
+    PrintHandler(std::nullptr_t) : output(nullptr) {}
+
+    PrintHandler(std::ostream& os) : output(&os) {}
 
 
     void operator()(const ClientArrivedEvent& event);

@@ -28,9 +28,7 @@ class Table {
 
     bool is_occupied() const;
 
-
     std::string occupied_by() const;
-
 
     void occupy(const Time& time, const std::string& client_name);
     

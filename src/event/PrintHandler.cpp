@@ -1,18 +1,15 @@
 #include "PrintHandler.h"
 
 
-PrintHandler::PrintHandler(std::ostream& output) : output(output) {}
-
-
 void PrintHandler::operator()(const ClientArrivedEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
 
 void PrintHandler::operator()(const ClientSatEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << " "
@@ -20,28 +17,28 @@ void PrintHandler::operator()(const ClientSatEvent& event) {
 }
 
 void PrintHandler::operator()(const ClientWaitedEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
 
 void PrintHandler::operator()(const ClientLeftEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
 
 void PrintHandler::operator()(const ClientKickedEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
 
 void PrintHandler::operator()(const QueuedClientSatEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << " "
@@ -49,7 +46,7 @@ void PrintHandler::operator()(const QueuedClientSatEvent& event) {
 }
 
 void PrintHandler::operator()(const ErrorEvent& event) {
-    output
+    *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.error_name << "\n";
