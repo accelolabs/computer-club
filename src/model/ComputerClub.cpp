@@ -58,8 +58,19 @@ EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
     if (!clients.contains(event.client_name)) return ErrorEvent(event.time, "ClientUnknown");
 
     if (remove_gaming_client(event.time, event.client_name)) {
+        
+        int table_id = 0;
+        for (const Table& table: tables) {
+            if (table.occupied_by() != event.client_name) continue;
+
+            table_id = table.get_id();
+            break;
+        }
+
+        if (queue.empty()) return EmptyEvent();
+
         clients.erase(event.client_name);
-        return ClientDequeuedEvent(event.time, queue.front(), event.id);
+        return ClientDequeuedEvent(event.time, queue.front(), table_id);
     }
 
     remove_waiting_client(event.client_name);
@@ -88,7 +99,7 @@ EventVariants ComputerClub::handle_dequeue(const ClientDequeuedEvent& event) {
     if (queue.front() != event.client_name) return ErrorEvent(event.time, "ClientUnknown");
 
     queue.pop_front();
-
+    clients.insert_or_assign(event.client_name, ClientStatus::GAMING);
     tables.at(event.table_id - 1).occupy(event.time, event.client_name);
 
     return EmptyEvent();
@@ -113,6 +124,11 @@ std::vector<EventVariants> ComputerClub::handle_close(const CloseClubEvent& even
 
     for (const std::string& client_name: clients_sorted) {
         result.emplace_back(ClientKickedEvent(event.time, client_name));
+    }
+
+    for (Table& table : tables) {
+        if (!table.is_occupied()) continue;
+        table.free(event.time);
     }
 
     return result;
