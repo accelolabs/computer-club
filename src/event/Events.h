@@ -124,6 +124,32 @@ struct ErrorEvent {
 };
 
 
+struct OpenClubEvent {
+
+    Time time;
+    int id = -1;
+
+
+    OpenClubEvent(const Time& time) :
+        time(time)
+    {}
+
+};
+
+
+struct CloseClubEvent {
+
+    Time time;
+    int id = -2;
+
+
+    CloseClubEvent(const Time& time) :
+        time(time)
+    {}
+
+};
+
+
 using EventVariants = std::variant<
     EmptyEvent,
     ClientArrivedEvent,
@@ -132,5 +158,7 @@ using EventVariants = std::variant<
     ClientLeftEvent,
     ClientKickedEvent,
     ClientDequeuedEvent,
-    ErrorEvent
+    ErrorEvent,
+    OpenClubEvent,
+    CloseClubEvent
 >;

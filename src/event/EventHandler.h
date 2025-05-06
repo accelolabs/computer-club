@@ -29,6 +29,8 @@ public:
     {}
 
 
+    void operator()(const EmptyEvent& event);
+
     void operator()(const ClientArrivedEvent& event);
     
     void operator()(const ClientSatEvent& event);
@@ -43,6 +45,8 @@ public:
     
     void operator()(const ErrorEvent& event);
 
-    void operator()(const EmptyEvent& event) {}
+    void operator()(const OpenClubEvent& event);
+
+    void operator()(const CloseClubEvent& event);
 
 };

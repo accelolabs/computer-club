@@ -38,4 +38,6 @@ public:
 
     EventVariants handle_dequeue(const ClientDequeuedEvent& event);
 
+    std::vector<EventVariants> handle_close(const CloseClubEvent& event);
+
 };

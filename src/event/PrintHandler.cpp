@@ -1,6 +1,9 @@
 #include "PrintHandler.h"
+#include "Events.h"
 #include <iostream>
 
+
+void PrintHandler::operator()(const EmptyEvent& event) {}
 
 void PrintHandler::operator()(const ClientArrivedEvent& event) {
     *output
@@ -51,4 +54,14 @@ void PrintHandler::operator()(const ErrorEvent& event) {
         << event.time.as_string() << " "
         << event.id << " "
         << event.error_name << "\n";
+}
+
+void PrintHandler::operator()(const OpenClubEvent& event) {
+    *output
+        << event.time.as_string() << "\n";
+}
+
+void PrintHandler::operator()(const CloseClubEvent& event) {
+    *output
+        << event.time.as_string() << "\n";
 }

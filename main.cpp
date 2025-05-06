@@ -8,11 +8,13 @@
 
 int main(int, char**){
     std::vector<EventVariants> events;
+    events.emplace_back(OpenClubEvent(Time("02:00")));
     events.emplace_back(ClientArrivedEvent(Time("01:44"), "Linus"));
     events.emplace_back(ClientArrivedEvent(Time("01:45"), "Marvin"));
     events.emplace_back(ClientArrivedEvent(Time("02:39"), "Terry"));
     events.emplace_back(ClientWaitedEvent(Time("04:04"), "Terry"));
     events.emplace_back(ClientArrivedEvent(Time("05:59"), "Daniel"));
+    events.emplace_back(CloseClubEvent(Time("05:00")));
 
     ComputerClubConfig config {
         Time("02:00"),

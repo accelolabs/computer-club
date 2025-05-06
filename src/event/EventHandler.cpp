@@ -3,6 +3,8 @@
 #include <variant>
 
 
+void EventHandler::operator()(const EmptyEvent& event) {}
+
 void EventHandler::operator()(const ClientArrivedEvent& event) {
     print(event);
 
@@ -47,4 +49,14 @@ void EventHandler::operator()(const ClientDequeuedEvent& event) {
 
 void EventHandler::operator()(const ErrorEvent& event) {
     print(event);
+}
+
+void EventHandler::operator()(const OpenClubEvent& event) {
+    print(event);
+}
+
+void EventHandler::operator()(const CloseClubEvent& event) {
+    print(event);
+
+    // std::visit(*this, for in club.handle_close(event));
 }
