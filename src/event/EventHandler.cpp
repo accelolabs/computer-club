@@ -1,11 +1,11 @@
 #include "EventHandler.h"
 #include "Events.h"
-#include <iostream>
 #include <variant>
 #include <vector>
 
 
 void EventHandler::operator()(const EmptyEvent& event) {}
+
 
 void EventHandler::operator()(const ClientArrivedEvent& event) {
     print(event);
@@ -53,9 +53,11 @@ void EventHandler::operator()(const ErrorEvent& event) {
     print(event);
 }
 
+
 void EventHandler::operator()(const OpenClubEvent& event) {
     print(event);
 }
+
 
 void EventHandler::operator()(const CloseClubEvent& event) {
     std::vector<EventVariants> events = club.handle_close(event);
@@ -64,6 +66,7 @@ void EventHandler::operator()(const CloseClubEvent& event) {
 
     print(event);
 }
+
 
 void EventHandler::operator()(const TableLogEvent& event) {
     print(event);

@@ -1,6 +1,4 @@
-#include <iostream>
 #include <stdexcept>
-
 #include <iomanip>
 #include <sstream>
 
@@ -18,6 +16,7 @@ Time::Time(const std::string& str) {
 
     time = str;
 }
+
 
 Time::Time(int mins) {
 

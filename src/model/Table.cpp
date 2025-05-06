@@ -10,6 +10,7 @@ std::string Table::occupied_by() const {
     return occupier;
 }
 
+
 void Table::occupy(const Time& time, const std::string& client_name) {
     if (occupied) return;
 
@@ -17,6 +18,7 @@ void Table::occupy(const Time& time, const std::string& client_name) {
     occupier = client_name;
     session_start = time;
 }
+
 
 void Table::free(const Time& time) {
     if (!occupied) return;

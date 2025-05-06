@@ -5,12 +5,14 @@
 
 void PrintHandler::operator()(const EmptyEvent& event) {}
 
+
 void PrintHandler::operator()(const ClientArrivedEvent& event) {
     *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
+
 
 void PrintHandler::operator()(const ClientSatEvent& event) {
     *output
@@ -20,12 +22,14 @@ void PrintHandler::operator()(const ClientSatEvent& event) {
         << event.table_id << "\n";
 }
 
+
 void PrintHandler::operator()(const ClientWaitedEvent& event) {
     *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
+
 
 void PrintHandler::operator()(const ClientLeftEvent& event) {
     *output
@@ -34,12 +38,14 @@ void PrintHandler::operator()(const ClientLeftEvent& event) {
         << event.client_name << "\n";
 }
 
+
 void PrintHandler::operator()(const ClientKickedEvent& event) {
     *output
         << event.time.as_string() << " "
         << event.id << " "
         << event.client_name << "\n";
 }
+
 
 void PrintHandler::operator()(const ClientDequeuedEvent& event) {
     *output
@@ -49,6 +55,7 @@ void PrintHandler::operator()(const ClientDequeuedEvent& event) {
         << event.table_id << "\n";
 }
 
+
 void PrintHandler::operator()(const ErrorEvent& event) {
     *output
         << event.time.as_string() << " "
@@ -56,15 +63,18 @@ void PrintHandler::operator()(const ErrorEvent& event) {
         << event.error_name << "\n";
 }
 
+
 void PrintHandler::operator()(const OpenClubEvent& event) {
     *output
         << event.time.as_string() << "\n";
 }
 
+
 void PrintHandler::operator()(const CloseClubEvent& event) {
     *output
         << event.time.as_string() << "\n";
 }
+
 
 void PrintHandler::operator()(const TableLogEvent& event) {
     *output

@@ -13,7 +13,6 @@ class EventHandler {
 private:
 
     ComputerClub club;
-
     PrintHandler print;
 
 public:

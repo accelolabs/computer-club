@@ -149,6 +149,7 @@ struct CloseClubEvent {
 
 };
 
+
 struct TableLogEvent {
 
     Time time;

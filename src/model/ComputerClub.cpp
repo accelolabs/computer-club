@@ -1,9 +1,9 @@
-#include "ComputerClub.h"
-#include "HelperModels.h"
 #include <algorithm>
-#include <iostream>
 #include <string>
 #include <vector>
+
+#include "ComputerClub.h"
+#include "HelperModels.h"
 
 
 ComputerClub::ComputerClub(const ComputerClubConfig& config) {
