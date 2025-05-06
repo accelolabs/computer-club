@@ -30,13 +30,9 @@ EventVariants ComputerClub::handle_sit(const ClientSatEvent& event) {
     if (!clients.contains(event.client_name)) return ErrorEvent(event.time, "ClientUnknown");
     if (tables.at(event.table_id - 1).is_occupied()) return ErrorEvent(event.time, "PlaceIsBusy");
 
-    ClientStatus status = clients.at(event.client_name);
+    remove_gaming_client(event.time, event.client_name);
 
-    if (status == ClientStatus::GAMING) {
-        for (Table& table : tables) {
-            if (table.occupied_by() == event.client_name) table.free(event.time);
-        }
-    }
+    remove_waiting_client(event.client_name);
 
     clients.insert_or_assign(event.client_name, ClientStatus::GAMING);
     tables.at(event.table_id - 1).occupy(event.time, event.client_name);
@@ -61,29 +57,14 @@ EventVariants ComputerClub::handle_wait(const ClientWaitedEvent& event) {
 EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
     if (!clients.contains(event.client_name)) return ErrorEvent(event.time, "ClientUnknown");
 
-    ClientStatus status = clients.at(event.client_name);
+    if (remove_gaming_client(event.time, event.client_name)) {
+        clients.erase(event.client_name);
+        return ClientDequeuedEvent(event.time, queue.front(), event.id);
+    }
+
+    remove_waiting_client(event.client_name);
+
     clients.erase(event.client_name);
-
-    if (status == ClientStatus::GAMING) {
-        for (Table& table : tables) {
-            if (table.occupied_by() == event.client_name) {
-
-                table.free(event.time);
-                return ClientDequeuedEvent(event.time, event.client_name, event.id);
-            }
-        }
-    }
-
-    if (status == ClientStatus::WAITING) {
-        for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
-            if (*it == event.client_name) {
-                queue.erase(it);
-                break;
-            }
-
-            it++;
-        }
-    }
 
     return EmptyEvent();
 }
@@ -92,25 +73,11 @@ EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
 EventVariants ComputerClub::handle_kick(const ClientKickedEvent& event) {
     if (!clients.contains(event.client_name)) return ErrorEvent(event.time, "ClientUnknown");
 
-    ClientStatus status = clients.at(event.client_name);
+    remove_gaming_client(event.time, event.client_name);
+
+    remove_waiting_client(event.client_name);
+
     clients.erase(event.client_name);
-
-    if (status == ClientStatus::GAMING) {
-        for (Table& table : tables) {
-            if (table.occupied_by() == event.client_name) table.free(event.time);
-        }
-    }
-
-    if (status == ClientStatus::WAITING) {
-        for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
-            if (*it == event.client_name) {
-                queue.erase(it);
-                break;
-            }
-
-            it++;
-        }
-    }
 
     return EmptyEvent();
 }
@@ -118,8 +85,8 @@ EventVariants ComputerClub::handle_kick(const ClientKickedEvent& event) {
 
 EventVariants ComputerClub::handle_dequeue(const ClientDequeuedEvent& event) {
     if (!clients.contains(event.client_name)) return ErrorEvent(event.time, "ClientUnknown");
+    if (queue.front() != event.client_name) return ErrorEvent(event.time, "ClientUnknown");
 
-    std::string name = queue.front();
     queue.pop_front();
 
     tables.at(event.table_id - 1).occupy(event.time, event.client_name);
@@ -162,3 +129,33 @@ std::vector<EventVariants> ComputerClub::handle_tables_log() {
     return result;
 }
 
+
+bool ComputerClub::remove_gaming_client(const Time& time, const std::string& client_name) {
+    if (clients.at(client_name) == ClientStatus::GAMING) {
+        for (Table& table : tables) {
+            if (table.occupied_by() != client_name) continue;
+
+            table.free(time);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+bool ComputerClub::remove_waiting_client(const std::string& client_name) {
+    if (clients.at(client_name) == ClientStatus::WAITING) {
+        for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
+            if (*it != client_name) {
+                it++;
+                continue;
+            }
+            
+            queue.erase(it);
+            return true;
+        }
+    }
+
+    return false;
+}

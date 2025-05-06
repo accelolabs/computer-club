@@ -42,4 +42,10 @@ public:
 
     std::vector<EventVariants> handle_tables_log();
 
+private:
+
+    bool remove_gaming_client(const Time& time, const std::string& client_name);
+
+    bool remove_waiting_client(const std::string& client_name);
+
 };
