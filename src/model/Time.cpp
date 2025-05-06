@@ -27,7 +27,7 @@ Time::Time(int mins) {
 
     std::stringstream ss;
     ss << std::setw(2) << std::setfill('0') << hours << ":" 
-       << std::setw(2) << std::setfill('0') << mins;
+       << std::setw(2) << std::setfill('0') << minutes;
     
     time = ss.str();
 }
