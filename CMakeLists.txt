@@ -15,7 +15,7 @@ add_library(computer_club_lib
 
 target_include_directories(computer_club_lib PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-add_executable("${CMAKE_PROJECT_NAME}" main.cpp)
+add_executable("${CMAKE_PROJECT_NAME}" src/main.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE computer_club_lib)
 
