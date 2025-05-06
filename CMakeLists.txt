@@ -15,10 +15,11 @@ add_library(computer_club_lib
 
 target_include_directories(computer_club_lib PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
-
 add_executable("${CMAKE_PROJECT_NAME}" main.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE computer_club_lib)
+
+file(COPY ${CMAKE_SOURCE_DIR}/example/ DESTINATION ${CMAKE_BINARY_DIR})
 
 enable_testing()
 add_subdirectory(test)
