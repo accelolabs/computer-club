@@ -106,7 +106,7 @@ std::vector<EventVariants> ComputerClub::handle_close(const CloseClubEvent& even
     std::sort(
         clients_sorted.begin(),
         clients_sorted.end(),
-        [](const std::string& a, const std::string& b){ return a > b; }
+        [](const std::string& a, const std::string& b){ return a < b; }
     );
 
     std::vector<EventVariants> result;
