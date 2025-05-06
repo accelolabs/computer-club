@@ -49,4 +49,6 @@ public:
 
     void operator()(const CloseClubEvent& event);
 
+    void operator()(const TableLogEvent& event);
+
 };

@@ -65,3 +65,10 @@ void PrintHandler::operator()(const CloseClubEvent& event) {
     *output
         << event.time.as_string() << "\n";
 }
+
+void PrintHandler::operator()(const TableLogEvent& event) {
+    *output
+        << event.table_id << " "
+        << event.revenue << " "
+        << event.time.as_string() << "\n";
+}

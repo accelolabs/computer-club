@@ -149,6 +149,22 @@ struct CloseClubEvent {
 
 };
 
+struct TableLogEvent {
+
+    Time time;
+    int id = -3;
+    int table_id;
+    int revenue;
+
+
+    TableLogEvent(const Time& time, int table_id, int revenue) :
+        time(time),
+        table_id(table_id),
+        revenue(revenue)
+    {}
+
+};
+
 
 using EventVariants = std::variant<
     EmptyEvent,
@@ -160,5 +176,6 @@ using EventVariants = std::variant<
     ClientDequeuedEvent,
     ErrorEvent,
     OpenClubEvent,
-    CloseClubEvent
+    CloseClubEvent,
+    TableLogEvent
 >;

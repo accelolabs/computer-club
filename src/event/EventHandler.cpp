@@ -60,3 +60,7 @@ void EventHandler::operator()(const CloseClubEvent& event) {
 
     // std::visit(*this, for in club.handle_close(event));
 }
+
+void EventHandler::operator()(const TableLogEvent& event) {
+    print(event);
+}
