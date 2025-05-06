@@ -17,9 +17,10 @@ add_executable(
         ClubTest.cpp
 )
 
-target_link_libraries(
-    club_test
+target_link_libraries(club_test
+    PRIVATE
         GTest::gtest_main
+        computer_club_lib
 )
 
 target_include_directories(club_test PUBLIC ${PROJECT_SOURCE_DIR})
