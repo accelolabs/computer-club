@@ -33,7 +33,7 @@ struct ClientArrivedEvent {
 struct ClientSatEvent {
 
     Time time;
-    int id = 1;
+    int id = 2;
     std::string client_name;
     int table_id;
 

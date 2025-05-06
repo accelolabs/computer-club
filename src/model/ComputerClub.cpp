@@ -19,7 +19,7 @@ EventVariants ComputerClub::handle_arrive(const ClientArrivedEvent& event) {
     if (event.time.get_total_minutes() < minutes_open) return ErrorEvent(event.time, "NotOpenYet");
     if (event.time.get_total_minutes() > minutes_close) return ErrorEvent(event.time, "NotOpenYet");
 
-    clients.emplace(event.client_name, WAITING);
+    clients.insert_or_assign(event.client_name, ClientStatus::WAITING);
     queue.emplace_back(event.client_name);
 
     return EmptyEvent();
@@ -32,12 +32,13 @@ EventVariants ComputerClub::handle_sit(const ClientSatEvent& event) {
 
     ClientStatus status = clients.at(event.client_name);
 
-    if (status == GAMING) {
+    if (status == ClientStatus::GAMING) {
         for (Table& table : tables) {
             if (table.occupied_by() == event.client_name) table.free(event.time);
         }
     }
 
+    clients.insert_or_assign(event.client_name, ClientStatus::GAMING);
     tables.at(event.table_id - 1).occupy(event.time, event.client_name);
 
     return EmptyEvent();
@@ -63,7 +64,7 @@ EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
     ClientStatus status = clients.at(event.client_name);
     clients.erase(event.client_name);
 
-    if (status == GAMING) {
+    if (status == ClientStatus::GAMING) {
         for (Table& table : tables) {
             if (table.occupied_by() == event.client_name) {
 
@@ -73,7 +74,7 @@ EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
         }
     }
 
-    if (status == WAITING) {
+    if (status == ClientStatus::WAITING) {
         for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
             if (*it == event.client_name) {
                 queue.erase(it);
@@ -94,13 +95,13 @@ EventVariants ComputerClub::handle_kick(const ClientKickedEvent& event) {
     ClientStatus status = clients.at(event.client_name);
     clients.erase(event.client_name);
 
-    if (status == GAMING) {
+    if (status == ClientStatus::GAMING) {
         for (Table& table : tables) {
             if (table.occupied_by() == event.client_name) table.free(event.time);
         }
     }
 
-    if (status == WAITING) {
+    if (status == ClientStatus::WAITING) {
         for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
             if (*it == event.client_name) {
                 queue.erase(it);
@@ -149,3 +150,15 @@ std::vector<EventVariants> ComputerClub::handle_close(const CloseClubEvent& even
 
     return result;
 }
+
+
+std::vector<EventVariants> ComputerClub::handle_tables_log() {
+    std::vector<EventVariants> result;
+
+    for (const Table& table: tables) {
+        result.emplace_back(TableLogEvent(Time(table.get_total_minutes()), table.get_id(), table.get_revenue()));
+    }
+
+    return result;
+}
+

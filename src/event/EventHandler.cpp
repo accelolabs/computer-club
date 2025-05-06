@@ -38,7 +38,7 @@ void EventHandler::operator()(const ClientLeftEvent& event) {
 void EventHandler::operator()(const ClientKickedEvent& event) {
     print(event);
 
-    // std::visit(*this, club.handle_kick(event));
+    std::visit(*this, club.handle_kick(event));
 }
 
 
@@ -65,6 +65,11 @@ void EventHandler::operator()(const CloseClubEvent& event) {
     for (const auto& event : events) std::visit(*this, event);
 
     print(event);
+    
+    events.clear();
+    events = club.handle_tables_log();
+
+    for (const auto& event : events) std::visit(*this, event);
 }
 
 

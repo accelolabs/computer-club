@@ -40,4 +40,6 @@ public:
 
     std::vector<EventVariants> handle_close(const CloseClubEvent& event);
 
+    std::vector<EventVariants> handle_tables_log();
+
 };

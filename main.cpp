@@ -12,7 +12,8 @@ int main(int, char**){
     events.emplace_back(ClientArrivedEvent(Time("01:44"), "Linus"));
     events.emplace_back(ClientArrivedEvent(Time("01:45"), "Marvin"));
     events.emplace_back(ClientArrivedEvent(Time("02:39"), "Terry"));
-    events.emplace_back(ClientWaitedEvent(Time("04:04"), "Terry"));
+    events.emplace_back(ClientSatEvent(Time("02:39"), "Terry", 3));
+    events.emplace_back(ClientSatEvent(Time("02:40"), "Terry", 2));
     events.emplace_back(ClientArrivedEvent(Time("05:59"), "Daniel"));
     events.emplace_back(CloseClubEvent(Time("05:00")));
 
