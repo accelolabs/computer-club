@@ -1,7 +1,8 @@
-#include "EventHandler.h"
-#include "Events.h"
 #include <variant>
 #include <vector>
+
+#include "EventHandler.h"
+#include "Events.h"
 
 
 void EventHandler::operator()(const EmptyEvent& event) {}
