@@ -1,5 +1,9 @@
 #include "ComputerClub.h"
+#include "HelperModels.h"
+#include <algorithm>
+#include <iostream>
 #include <string>
+#include <vector>
 
 
 ComputerClub::ComputerClub(const ComputerClubConfig& config) {
@@ -70,9 +74,13 @@ EventVariants ComputerClub::handle_leave(const ClientLeftEvent& event) {
     }
 
     if (status == WAITING) {
-        for (std::deque<std::string>::iterator i = queue.begin(); i != queue.end();) {
-            if (*i == event.client_name) queue.erase(i);
-            i++;
+        for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
+            if (*it == event.client_name) {
+                queue.erase(it);
+                break;
+            }
+
+            it++;
         }
     }
 
@@ -93,9 +101,13 @@ EventVariants ComputerClub::handle_kick(const ClientKickedEvent& event) {
     }
 
     if (status == WAITING) {
-        for (std::deque<std::string>::iterator i = queue.begin(); i != queue.end();) {
-            if (*i == event.client_name) queue.erase(i);
-            i++;
+        for (std::deque<std::string>::iterator it = queue.begin(); it != queue.end();) {
+            if (*it == event.client_name) {
+                queue.erase(it);
+                break;
+            }
+
+            it++;
         }
     }
 
@@ -112,4 +124,28 @@ EventVariants ComputerClub::handle_dequeue(const ClientDequeuedEvent& event) {
     tables.at(event.table_id - 1).occupy(event.time, event.client_name);
 
     return EmptyEvent();
+}
+
+
+std::vector<EventVariants> ComputerClub::handle_close(const CloseClubEvent& event) {
+    std::vector<std::string> clients_sorted;
+    clients_sorted.reserve(clients.size());
+
+    for (std::map<std::string, ClientStatus>::iterator it = clients.begin(); it != clients.end(); ++it) {
+        clients_sorted.push_back(it -> first);
+    }
+
+    std::sort(
+        clients_sorted.begin(),
+        clients_sorted.end(),
+        [](const std::string& a, const std::string& b){ return a > b; }
+    );
+
+    std::vector<EventVariants> result;
+
+    for (const std::string& client_name: clients_sorted) {
+        result.emplace_back(ClientKickedEvent(event.time, client_name));
+    }
+
+    return result;
 }

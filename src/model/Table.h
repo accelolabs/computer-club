@@ -24,11 +24,13 @@ class Table {
 
 
     bool is_occupied() const;
-
     std::string occupied_by() const;
 
     void occupy(const Time& time, const std::string& client_name);
-    
     void free(const Time& time);
+
+    int get_id() const { return id;}
+    int get_total_minutes() const { return minutes;}
+    int get_revenue() const { return revenue;}
 
 };

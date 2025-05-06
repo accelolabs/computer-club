@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdexcept>
 
 #include <iomanip>
@@ -20,7 +21,7 @@ Time::Time(const std::string& str) {
 
 Time::Time(int mins) {
 
-    if (minutes < 0 || minutes >= 1440) throw std::invalid_argument("Invalid time format.");
+    if (mins < 0 || mins >= 1440) throw std::invalid_argument("Invalid time format.");
 
     int hours = mins / 60;
     int minutes = mins % 60;

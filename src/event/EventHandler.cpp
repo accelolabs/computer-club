@@ -1,6 +1,8 @@
 #include "EventHandler.h"
 #include "Events.h"
+#include <iostream>
 #include <variant>
+#include <vector>
 
 
 void EventHandler::operator()(const EmptyEvent& event) {}
@@ -36,7 +38,7 @@ void EventHandler::operator()(const ClientLeftEvent& event) {
 void EventHandler::operator()(const ClientKickedEvent& event) {
     print(event);
 
-    std::visit(*this, club.handle_kick(event));
+    // std::visit(*this, club.handle_kick(event));
 }
 
 
@@ -56,9 +58,11 @@ void EventHandler::operator()(const OpenClubEvent& event) {
 }
 
 void EventHandler::operator()(const CloseClubEvent& event) {
-    print(event);
+    std::vector<EventVariants> events = club.handle_close(event);
 
-    // std::visit(*this, for in club.handle_close(event));
+    for (const auto& event : events) std::visit(*this, event);
+
+    print(event);
 }
 
 void EventHandler::operator()(const TableLogEvent& event) {
